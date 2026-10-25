@@ -166,19 +166,19 @@
 </style>
 </head>
 <body>
-<a class="skip" href="#main">تخطَّ إلى المحتوى الرئيسي</a>
+<a class="skip" id="skip" href="#main" data-ar="تخطَّ إلى المحتوى الرئيسي" data-en="Skip to main content">تخطَّ إلى المحتوى الرئيسي</a>
 
 <header class="site">
   <div class="wrap nav">
-    <a class="brand" href="#top">
+    <a class="brand" id="brand" href="#top">
       <img src="assets/app-icon.png" alt="">
       <span>MS Media Player</span>
     </a>
-    <nav class="nav-links" aria-label="التنقل الرئيسي">
-      <a href="#features">المزايا</a>
-      <a href="#download">التحميل</a>
-      <a href="#accessibility">الإتاحة</a>
-      <a href="#faq">الأسئلة</a>
+    <nav class="nav-links" id="main-nav" aria-label="التنقل الرئيسي">
+      <a href="#features" data-ar="المزايا" data-en="Features">المزايا</a>
+      <a href="#download" data-ar="التحميل" data-en="Download">التحميل</a>
+      <a href="#accessibility" data-ar="الإتاحة" data-en="Accessibility">الإتاحة</a>
+      <a href="#faq" data-ar="الأسئلة" data-en="FAQ">الأسئلة</a>
       <div class="lang" role="group" aria-label="اختيار اللغة">
         <button type="button" id="btn-ar" aria-pressed="true" onclick="setLang('ar')">العربية</button>
         <button type="button" id="btn-en" aria-pressed="false" onclick="setLang('en')">English</button>
@@ -501,6 +501,18 @@ function setLang(lang) {
   footer.textContent = isAr
     ? 'برنامج مجاني احتكاري (All Rights Reserved)'
     : 'Proprietary freeware (All Rights Reserved)';
+
+  const nav = document.getElementById('main-nav');
+  nav.setAttribute('aria-label', isAr ? 'التنقل الرئيسي' : 'Main navigation');
+  nav.querySelectorAll('a[data-ar]').forEach((link, index) => {
+    link.textContent = isAr ? link.dataset.ar : link.dataset.en;
+    const base = ['features', 'download', 'accessibility', 'faq'][index];
+    link.setAttribute('href', '#' + base + (isAr ? '' : '-en'));
+  });
+  document.getElementById('brand').setAttribute('href', isAr ? '#top' : '#top-en');
+  const skip = document.getElementById('skip');
+  skip.textContent = isAr ? skip.dataset.ar : skip.dataset.en;
+
   try { localStorage.setItem('msmp-lang', lang); } catch (e) {}
 }
 try {
