@@ -1,0 +1,41 @@
+MS Media Player — Contrato de licencia de usuario final (EULA)
+
+Aplicación   : MS Media Player
+Versión      : 1.0.0
+Desarrollador: Mohamed Mosad
+Soporte (WhatsApp / Telegram) : +20 10 40 24 30 45
+
+====================================================================
+
+1. Concesión de licencia
+Este software se te concede en licencia personal y no exclusiva para ejecutarlo
+en tus propios dispositivos con fines personales, de acuerdo con los términos
+que se indican a continuación.
+
+2. Propiedad intelectual
+Todos los derechos de propiedad intelectual relacionados con este software,
+incluido su código fuente, diseño y marcas, pertenecen a su desarrollador,
+Mohamed Mosad. No se permite copiar, redistribuir, modificar, vender,
+re-licenciar ni aplicar ingeniería inversa al software, total o parcialmente,
+sin el consentimiento previo por escrito del desarrollador.
+
+3. Limitación de responsabilidad
+Este software se proporciona "TAL CUAL" (AS IS), sin garantía expresa ni
+implícita de ningún tipo. El desarrollador no se hace responsable de ningún
+daño directo o indirecto, pérdida de datos o corrupción derivados del uso de
+este software.
+
+4. Soporte técnico y sugerencias
+Para sugerencias y soporte técnico puedes contactar con el desarrollador por
+WhatsApp o Telegram en el número : +20 10 40 24 30 45
+
+5. Legislación aplicable
+Este contrato se rige por las leyes aplicables en el país del desarrollador,
+sin perjuicio de los derechos obligatorios que te otorguen las leyes locales de
+protección de los consumidores.
+
+====================================================================
+
+Al seleccionar "Acepto el contrato" confirmas que has leído y comprendido estos
+términos y que aceptas quedar vinculado por ellos. Si no estás de acuerdo,
+cierra el instalador y la instalación se cancelará.

@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.venv/
+venv/
+env/
+
+# Build artefacts
+build/
+dist/
+packaging/Output/
+*.spec.bak
+*.bak
+*.bak.*
+
+# Test / lint caches
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Local logs and settings
+*.log
+*.ini.bak
+
+# OS junk
+Thumbs.db
+desktop.ini
+.DS_Store

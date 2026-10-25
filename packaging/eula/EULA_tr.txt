@@ -1,0 +1,39 @@
+MS Media Player — Son Kullanıcı Lisans Sözleşmesi (EULA)
+
+Uygulama   : MS Media Player
+Sürüm      : 1.0.0
+Geliştirici: Mohamed Mosad
+Destek (WhatsApp / Telegram) : +20 10 40 24 30 45
+
+====================================================================
+
+1. Lisans verilmesi
+Bu yazılım, aşağıda belirtilen şartlara uygun olarak, kişisel kullanım amacıyla
+kendi cihazlarınızda çalıştırmanız için size kişisel ve münhasır olmayan bir
+lisansla verilmiştir.
+
+2. Fikri mülkiyet
+Bu yazılımla ilgili kaynak kodu, tasarım ve markalar dâhil tüm fikri mülkiyet
+hakları geliştiricisi Mohamed Mosad'a aittir. Yazılım, geliştiricinin önceden
+yazılı izni olmaksızın kısmen veya tamamen kopyalanamaz, dağıtılamaz,
+değiştirilemez, satılamaz, yeniden lisanslanamaz veya tersine mühendisliğe tabi
+tutulamaz.
+
+3. Sorumluluğun sınırlandırılması
+Bu yazılım, açık veya zımni hiçbir garanti olmaksızın "OLDUĞU GİBİ" (AS IS)
+sunulmaktadır. Geliştirici, bu yazılımın kullanımından doğan doğrudan veya
+dolaylı zararlardan, veri kaybından veya bozulmadan sorumlu değildir.
+
+4. Teknik destek ve öneriler
+Öneriler ve teknik destek için geliştiriciye WhatsApp veya Telegram üzerinden
+şu numaradan ulaşabilirsiniz : +20 10 40 24 30 45
+
+5. Uygulanacak hukuk
+Bu sözleşme, geliştiricinin ülkesinde geçerli olan yasalara tabidir; yerel
+tüketici koruma yasalarının size tanıdığı zorunlu haklar saklıdır.
+
+====================================================================
+
+"Sözleşmeyi kabul ediyorum" seçeneğini seçerek bu şartları okuduğunuzu,
+anladığınızı ve bunlarla bağlı olmayı kabul ettiğinizi onaylarsınız. Kabul
+etmiyorsanız lütfen kurulum programını kapatın; kurulum iptal edilecektir.

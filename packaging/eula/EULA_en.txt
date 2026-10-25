@@ -1,0 +1,40 @@
+MS Media Player — End User License Agreement (EULA)
+
+Application : MS Media Player
+Version     : 1.0.0
+Developer   : Mohamed Mosad
+Support (WhatsApp / Telegram) : +20 10 40 24 30 45
+
+====================================================================
+
+1. License grant
+This software is licensed to you personally and non-exclusively for running it
+on your own devices for personal use, in accordance with the terms set out
+below.
+
+2. Intellectual property
+All intellectual-property rights relating to this software, including its
+source code, design and marks, belong to its developer, Mohamed Mosad. The
+software may not be copied, redistributed, modified, sold, re-licensed or
+reverse-engineered, in whole or in part, without the developer's prior written
+permission.
+
+3. Limitation of liability
+This software is provided "AS IS", without any express or implied warranty. The
+developer is not liable for any direct or indirect damage, data loss or
+corruption arising from the use of this software.
+
+4. Technical support and suggestions
+For suggestions and technical support you can contact the developer on WhatsApp
+or Telegram at : +20 10 40 24 30 45
+
+5. Governing law
+This agreement is governed by the laws applicable in the developer's country,
+without prejudice to any mandatory rights granted to you by your local consumer
+protection laws.
+
+====================================================================
+
+By selecting "I accept the agreement" you confirm that you have read and
+understood these terms and agree to be bound by them. If you do not agree,
+please close the installer and the installation will be cancelled.

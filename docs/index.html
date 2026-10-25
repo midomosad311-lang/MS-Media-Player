@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MS Media Player — مشغّل وسائط احترافي متاح للجميع</title>
+<meta name="description" content="مشغّل وسائط احترافي لنظام Windows، متاح بالكامل لذوي الاحتياجات الخاصة، بستّ لغات منها العربية. تحميل مباشر للمثبّت والنسخة المحمولة.">
+<meta property="og:title" content="MS Media Player — مشغّل وسائط احترافي متاح للجميع">
+<meta property="og:description" content="مشغّل وسائط لنظام Windows بدعم كامل لقارئات الشاشة، وستّ لغات، ومحرّك VLC محزوم. تحميل مباشر.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/app-icon.png">
+<style>
+  :root {
+    --bg: #070b14;
+    --bg-2: #0b1220;
+    --card: rgba(17, 24, 39, .78);
+    --border: rgba(148, 163, 184, .18);
+    --text: #e5e7eb;
+    --muted: #a8b3c4;
+    --brand: #3b82f6;
+    --brand-2: #8b5cf6;
+    --accent: #22c55e;
+    --radius: 22px;
+    --shadow: 0 24px 70px rgba(0, 0, 0, .45);
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, "Noto Naskh Arabic", Arial, sans-serif;
+    background:
+      radial-gradient(1100px 600px at 85% -10%, rgba(59, 130, 246, .25), transparent 60%),
+      radial-gradient(900px 500px at 10% 10%, rgba(139, 92, 246, .18), transparent 55%),
+      var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+  a { color: #93c5fd; }
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 3px solid #fbbf24;
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+  .skip {
+    position: absolute; inset-inline-start: -9999px; top: 12px;
+    background: #fbbf24; color: #111827; padding: 10px 16px;
+    border-radius: 10px; font-weight: 700; z-index: 100;
+  }
+  .skip:focus { inset-inline-start: 12px; }
+  .wrap { width: min(1160px, 100% - 40px); margin-inline: auto; }
+  header.site {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(7, 11, 20, .82);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav { display: flex; align-items: center; gap: 18px; padding: 14px 0; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); font-weight: 800; }
+  .brand img { width: 42px; height: 42px; border-radius: 12px; }
+  .nav-links { display: flex; gap: 18px; margin-inline-start: auto; align-items: center; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 15px; }
+  .nav-links a:hover { color: #fff; }
+  .lang { display: flex; gap: 6px; background: #111827; border: 1px solid var(--border); padding: 4px; border-radius: 999px; }
+  .lang button {
+    border: 0; background: transparent; color: var(--muted); font: inherit;
+    padding: 6px 14px; border-radius: 999px; cursor: pointer;
+  }
+  .lang button[aria-pressed="true"] { background: #1d4ed8; color: #fff; font-weight: 700; }
+  .hero { padding: 72px 0 40px; display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(34, 197, 94, .12); color: #86efac;
+    border: 1px solid rgba(34, 197, 94, .35);
+    padding: 6px 14px; border-radius: 999px; font-size: 14px; font-weight: 700;
+  }
+  h1 { font-size: clamp(34px, 5vw, 58px); line-height: 1.2; margin: 20px 0 14px; letter-spacing: -.5px; }
+  .grad { background: linear-gradient(120deg, #60a5fa, #a78bfa 55%, #f472b6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lead { font-size: 19px; color: var(--muted); max-width: 62ch; margin: 0 0 28px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 14px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 24px; border-radius: 14px; text-decoration: none;
+    font-weight: 800; font-size: 16px; border: 1px solid transparent;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: linear-gradient(135deg, #2563eb, #7c3aed); color: #fff; box-shadow: 0 12px 30px rgba(59, 130, 246, .3); }
+  .btn-ghost { background: #111827; color: var(--text); border-color: var(--border); }
+  .meta { margin-top: 18px; color: #94a3b8; font-size: 14px; }
+  .hero-art { position: relative; display: grid; place-items: center; }
+  .glow { position: absolute; width: 320px; height: 320px; background: radial-gradient(circle, rgba(59, 130, 246, .45), transparent 65%); filter: blur(20px); }
+  .app-icon { width: min(300px, 70vw); border-radius: 64px; box-shadow: 0 30px 80px rgba(0, 0, 0, .55); position: relative; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 26px 0 10px; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 18px; text-align: center; }
+  .stat strong { display: block; font-size: 26px; color: #fff; }
+  .stat span { color: var(--muted); font-size: 14px; }
+  section { padding: 64px 0; }
+  h2 { font-size: clamp(26px, 3.4vw, 38px); margin: 0 0 10px; }
+  .sub { color: var(--muted); margin: 0 0 32px; max-width: 70ch; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);
+  }
+  .card h3 { margin: 0 0 8px; font-size: 19px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  .ico {
+    width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
+    background: linear-gradient(135deg, rgba(59, 130, 246, .25), rgba(139, 92, 246, .25));
+    border: 1px solid rgba(147, 197, 253, .25); margin-bottom: 14px;
+  }
+  .ico svg { width: 22px; height: 22px; fill: none; stroke: #bfdbfe; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .download { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .dl-card { background: linear-gradient(160deg, rgba(37, 99, 235, .16), rgba(17, 24, 39, .9)); }
+  .dl-card .size { color: #93c5fd; font-weight: 700; }
+  .dl-card .btn { width: 100%; margin-top: 18px; }
+  .tag { display: inline-block; font-size: 13px; padding: 3px 10px; border-radius: 999px; background: rgba(34, 197, 94, .14); color: #86efac; border: 1px solid rgba(34, 197, 94, .3); }
+  .checksum { margin-top: 18px; }
+  .checksum code {
+    display: block; direction: ltr; text-align: left; overflow-wrap: anywhere;
+    background: #0b1220; border: 1px solid var(--border); border-radius: 12px;
+    padding: 12px 14px; color: #cbd5e1; font-size: 13px; line-height: 1.6;
+  }
+  .checksum .label { color: var(--muted); font-size: 14px; margin: 14px 0 6px; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  ul.checks { list-style: none; padding: 0; margin: 0; }
+  ul.checks li { position: relative; padding-inline-start: 30px; margin-bottom: 12px; color: #cbd5e1; }
+  ul.checks li::before {
+    content: "✓"; position: absolute; inset-inline-start: 0; top: 0;
+    color: #4ade80; font-weight: 900;
+  }
+  details {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 18px 22px; margin-bottom: 12px;
+  }
+  summary { cursor: pointer; font-weight: 700; font-size: 17px; }
+  details p { color: var(--muted); margin: 12px 0 0; }
+  .links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .links a {
+    text-decoration: none; color: var(--text); background: #111827;
+    border: 1px solid var(--border); padding: 10px 16px; border-radius: 12px; font-size: 15px;
+  }
+  .links a:hover { border-color: #3b82f6; }
+  footer { border-top: 1px solid var(--border); padding: 36px 0 60px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
+  [hidden] { display: none !important; }
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding-top: 44px; }
+    .hero-art { order: -1; }
+    .app-icon { width: 190px; }
+    .grid { grid-template-columns: 1fr 1fr; }
+    .download, .split { grid-template-columns: 1fr; }
+    .nav-links a:not(.lang a) { display: none; }
+  }
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr; }
+    .nav { flex-wrap: wrap; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">تخطَّ إلى المحتوى الرئيسي</a>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <img src="assets/app-icon.png" alt="">
+      <span>MS Media Player</span>
+    </a>
+    <nav class="nav-links" aria-label="التنقل الرئيسي">
+      <a href="#features">المزايا</a>
+      <a href="#download">التحميل</a>
+      <a href="#accessibility">الإتاحة</a>
+      <a href="#faq">الأسئلة</a>
+      <div class="lang" role="group" aria-label="اختيار اللغة">
+        <button type="button" id="btn-ar" aria-pressed="true" onclick="setLang('ar')">العربية</button>
+        <button type="button" id="btn-en" aria-pressed="false" onclick="setLang('en')">English</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div id="ar" lang="ar" dir="rtl">
+    <div class="wrap hero" id="top">
+      <div>
+        <span class="badge">الإصدار 1.0.0 — متاح الآن</span>
+        <h1>مشغّل وسائط <span class="grad">احترافي</span><br>متاح للجميع</h1>
+        <p class="lead">مشغّل وسائط مجاني لنظام Windows، مبني بـ Python وPySide6 ومحرّك VLC، بدعم كامل لقارئات الشاشة، وتنقّل كامل بلوحة المفاتيح، وستّ لغات منها العربية. لا يحتاج Python ولا تثبيت VLC.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="https://github.com/midomosad311-lang/MS-Media-Player/releases/latest/download/MSMediaPlayer_Setup_1.0.0.exe">تحميل المثبّت</a>
+          <a class="btn btn-ghost" href="https://github.com/midomosad311-lang/MS-Media-Player/releases/latest/download/MSMediaPlayer.exe">النسخة المحمولة</a>
+          <a class="btn btn-ghost" href="https://github.com/midomosad311-lang/MS-Media-Player">المستودع على GitHub</a>
+        </div>
+        <p class="meta">Windows 10/11 (64-bit) • لا يحتاج صلاحيات مدير • المثبّت بحجم ‎≈ 156 م.ب</p>
+      </div>
+      <div class="hero-art">
+        <div class="glow" aria-hidden="true"></div>
+        <img class="app-icon" src="assets/app-icon.png" alt="أيقونة تطبيق MS Media Player">
+      </div>
+    </div>
+
+    <div class="wrap stats">
+      <div class="stat"><strong>6</strong><span>لغات بواجهة كاملة</span></div>
+      <div class="stat"><strong>100%</strong><span>إتاحة بلوحة المفاتيح</span></div>
+      <div class="stat"><strong>0</strong><span>مكتبات خارجية مطلوبة</span></div>
+    </div>
+
+    <section id="features">
+      <div class="wrap">
+        <h2>كل ما تحتاجه في مشغّل واحد</h2>
+        <p class="sub">مزايا احترافية مصمّمة من الأساس لقارئات الشاشة وذوي الاحتياجات الخاصة، دون التضحية بقوة التشغيل.</p>
+        <div class="grid">
+          <article class="card">
+            <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 7v5l3 2"/><path d="M16 3h5v5"/></svg></div>
+            <h3>إتاحة كاملة</h3>
+            <p>توافق مع NVDA وJAWS وNarrator، وإعلان أسماء الأزرار واختصاراتها، وترتيب Tab منطقي.</p>
+          </article>
+          <article class="card">
+            <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></div>
+            <h3>ستّ لغات</h3>
+            <p>العربية والإنجليزية والإيطالية والإسبانية والبرتغالية والتركية، بتبديل فوري واتجاه RTL تلقائي.</p>
+          </article>
+          <article class="card">
+            <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="m10 9 5 3-5 3z"/></svg></div>
+            <h3>تشغيل متقدّم</h3>
+            <p>سرعة 0.25×–4×، تقديم وتأخير قابل للضبط، تكرار A-B، علامات مرجعية، واستئناف من حيث توقفت.</p>
+          </article>
+          <article class="card">
+            <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="18" cy="18" r="2"/></svg></div>
+            <h3>قوائم تشغيل</h3>
+            <p>دعم M3U، خلط عشوائي، تكرار، وإدارة قوائم متعددة مع نافذة مستقلة.</p>
+          </article>
+          <article class="card">
+            <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 8a5 5 0 0 1 0 8"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></div>
+            <h3>صوت وفيديو</h3>
+            <p>مُعادل صوتي، مزامنة الصوت، ترجمات SRT/ASS، تسريع عتاد، وتحكّم كامل في شكل الترجمة.</p>
+          </article>
+          <article class="card">
+            <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12a7 7 0 0 1 14 0"/><path d="M8 12a4 4 0 0 1 8 0"/><circle cx="12" cy="16" r="1.5"/><path d="M2 12a10 10 0 0 1 20 0"/></svg></div>
+            <h3>بثّ شبكي</h3>
+            <p>HTTP وRTSP وRTMP وHLS وDASH، مع دعم روابط يوتيوب عبر yt-dlp.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="download">
+      <div class="wrap">
+        <h2>التحميل</h2>
+        <p class="sub">اختر المثبّت للحصول على اختصار سطح المكتب وإلغاء تثبيت كامل، أو النسخة المحمولة للتشغيل الفوري.</p>
+        <div class="download">
+          <article class="card dl-card">
+            <span class="tag">موصى به</span>
+            <h3 style="margin-top:12px">المثبّت متعدّد اللغات</h3>
+            <p>يعرض اتفاقية الترخيص، ويسمح باختيار مجلد التثبيت، وينشئ اختصارًا على سطح المكتب.</p>
+            <p class="size">MSMediaPlayer_Setup_1.0.0.exe — ‎≈ 156 م.ب</p>
+            <a class="btn btn-primary" href="https://github.com/midomosad311-lang/MS-Media-Player/releases/latest/download/MSMediaPlayer_Setup_1.0.0.exe">تحميل المثبّت</a>
+          </article>
+          <article class="card dl-card">
+            <span class="tag">بدون تثبيت</span>
+            <h3 style="margin-top:12px">النسخة المحمولة</h3>
+            <p>ملف تنفيذي واحد يعمل مباشرة، دون صلاحيات مدير أو تثبيت أي مكوّن.</p>
+            <p class="size">MSMediaPlayer.exe — ‎≈ 157 م.ب</p>
+            <a class="btn btn-ghost" href="https://github.com/midomosad311-lang/MS-Media-Player/releases/latest/download/MSMediaPlayer.exe">تحميل النسخة المحمولة</a>
+          </article>
+        </div>
+        <div class="checksum">
+          <p class="label">بصمة SHA-256 للمثبّت:</p>
+          <code>AEB789C385153EF4D0A389D1DEDAB38557718D3D9C78D1CB69096D529B34094E</code>
+          <p class="label">بصمة SHA-256 للنسخة المحمولة:</p>
+          <code>13FE8379F8DD777B104FA924B7CC4F2DB5963FAC7E60D308622D0D9EE026C30F</code>
+        </div>
+      </div>
+    </section>
+
+    <section id="accessibility">
+      <div class="wrap split">
+        <div>
+          <h2>مصمَّم ليكون متاحًا</h2>
+          <p class="sub">لا نعتبر الإتاحة ميزة إضافية، بل أساسًا في كل شاشة وكل زر.</p>
+          <ul class="checks">
+            <li>دعم NVDA وJAWS وNarrator بشكل كامل.</li>
+            <li>كل زر يعلن اسمه واختصاره ووصفه.</li>
+            <li>شريط التمرير عنصر مستقل يعلن المدة والمنقضي والمتبقي بالكلمات.</li>
+            <li>ثيمات عالية التباين وخطوط قابلة للتكبير.</li>
+            <li>تنقّل كامل بلوحة المفاتيح دون الحاجة للفأرة.</li>
+            <li>لا يعتمد على السحب والإفلات لتجنّب تعارضه مع قارئات الشاشة.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>اختصارات سريعة</h3>
+          <p><strong>Space</strong> تشغيل/إيقاف مؤقت • <strong>S</strong> إيقاف • <strong>F</strong> ملء الشاشة</p>
+          <p><strong>Ctrl+O</strong> فتح ملف • <strong>Ctrl+U</strong> فتح رابط • <strong>Ctrl+P</strong> الإعدادات</p>
+          <p><strong>R</strong> تكرار • <strong>H</strong> خلط • <strong>M</strong> كتم • <strong>]</strong> / <strong>[</strong> السرعة</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="wrap">
+        <h2>الأسئلة الشائعة</h2>
+        <p class="sub">إجابات سريعة قبل التحميل.</p>
+        <details>
+          <summary>هل يحتاج التطبيق إلى Python أو VLC؟</summary>
+          <p>لا. الملف التنفيذي والمثبّت يحتويان على محرّك VLC كامل وكل الاعتماديات. يكفي Windows 10/11 (64-bit).</p>
+        </details>
+        <details>
+          <summary>هل التطبيق مجاني؟</summary>
+          <p>نعم، التطبيق مجاني للاستخدام الشخصي. الكود منشور للاطّلاع فقط بموجب ترخيص احتكاري (All Rights Reserved)، راجع صفحة الترخيص في المستودع.</p>
+        </details>
+        <details>
+          <summary>هل يعمل مع قارئ الشاشة الذي أستخدمه؟</summary>
+          <p>نعم، تم اختباره مع NVDA وNarrator، ويتبع معايير إتاحة Qt التي تدعم JAWS أيضًا. كل العناصر تعلن أسماءها واختصاراتها.</p>
+        </details>
+        <details>
+          <summary>كيف أبلغ عن مشكلة أو أقترح ميزة؟</summary>
+          <p>عبر <a href="https://github.com/midomosad311-lang/MS-Media-Player/issues">صفحة المشكلات على GitHub</a>، أو واتساب/تليجرام على الرقم +20 10 40 24 30 45.</p>
+        </details>
+      </div>
+    </section>
+  </div>
+
+  <div id="en" lang="en" dir="ltr" hidden>
+    <div class="wrap hero" id="top-en">
+      <div>
+        <span class="badge">Version 1.0.0 — available now</span>
+        <h1>A <span class="grad">professional</span> media player<br>for everyone</h1>
+        <p class="lead">A free Windows media player built with Python, PySide6 and the VLC engine, with full screen-reader support, complete keyboard navigation and six languages including Arabic. No Python or VLC installation required.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="https://github.com/midomosad311-lang/MS-Media-Player/releases/latest/download/MSMediaPlayer_Setup_1.0.0.exe">Download installer</a>
+          <a class="btn btn-ghost" href="https://github.com/midomosad311-lang/MS-Media-Player/releases/latest/download/MSMediaPlayer.exe">Portable version</a>
+          <a class="btn btn-ghost" href="https://github.com/midomosad311-lang/MS-Media-Player">View on GitHub</a>
+        </div>
+        <p class="meta">Windows 10/11 (64-bit) • No admin rights required • Installer ≈ 156 MB</p>
+      </div>
+      <div class="hero-art">
+        <div class="glow" aria-hidden="true"></div>
+        <img class="app-icon" src="assets/app-icon.png" alt="MS Media Player app icon">
+      </div>
+    </div>
+
+    <div class="wrap stats">
+      <div class="stat"><strong>6</strong><span>fully translated languages</span></div>
+      <div class="stat"><strong>100%</strong><span>keyboard accessible</span></div>
+      <div class="stat"><strong>0</strong><span>external runtimes needed</span></div>
+    </div>
+
+    <section id="features-en">
+      <div class="wrap">
+        <h2>Everything you need in one player</h2>
+        <p class="sub">Professional features designed from the ground up for screen readers and accessibility, without sacrificing playback power.</p>
+        <div class="grid">
+          <article class="card">
+            <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 7v5l3 2"/><path d="M16 3h5v5"/></svg></div>
+            <h3>Full accessibility</h3>
+            <p>NVDA, JAWS and Narrator support; every control announces its name and shortcut; logical Tab order.</p>
+          </article>
+          <article class="card">
+            <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></div>
+            <h3>Six languages</h3>
+            <p>Arabic, English, Italian, Spanish, Portuguese and Turkish, switched live with automatic RTL for Arabic.</p>
+          </article>
+          <article class="card">
+            <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="m10 9 5 3-5 3z"/></svg></div>
+            <h3>Advanced playback</h3>
+            <p>0.25×–4× speed, configurable seek, A-B loop, bookmarks and resume where you left off.</p>
+          </article>
+          <article class="card">
+            <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="18" cy="18" r="2"/></svg></div>
+            <h3>Playlists</h3>
+            <p>M3U support, shuffle, repeat and multiple independent playlist windows.</p>
+          </article>
+          <article class="card">
+            <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 8a5 5 0 0 1 0 8"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></div>
+            <h3>Audio &amp; video</h3>
+            <p>Equalizer, audio sync, SRT/ASS subtitles, hardware acceleration and full subtitle styling.</p>
+          </article>
+          <article class="card">
+            <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12a7 7 0 0 1 14 0"/><path d="M8 12a4 4 0 0 1 8 0"/><circle cx="12" cy="16" r="1.5"/><path d="M2 12a10 10 0 0 1 20 0"/></svg></div>
+            <h3>Network streaming</h3>
+            <p>HTTP, RTSP, RTMP, HLS and DASH, plus YouTube links via yt-dlp.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="download-en">
+      <div class="wrap">
+        <h2>Download</h2>
+        <p class="sub">Choose the installer for a desktop shortcut and a full uninstaller, or the portable build for instant playback.</p>
+        <div class="download">
+          <article class="card dl-card">
+            <span class="tag">Recommended</span>
+            <h3 style="margin-top:12px">Multilingual installer</h3>
+            <p>Shows the licence agreement, lets you choose the install folder and creates a desktop shortcut.</p>
+            <p class="size">MSMediaPlayer_Setup_1.0.0.exe — ≈ 156 MB</p>
+            <a class="btn btn-primary" href="https://github.com/midomosad311-lang/MS-Media-Player/releases/latest/download/MSMediaPlayer_Setup_1.0.0.exe">Download installer</a>
+          </article>
+          <article class="card dl-card">
+            <span class="tag">No install</span>
+            <h3 style="margin-top:12px">Portable build</h3>
+            <p>A single executable that runs directly, with no admin rights or extra components.</p>
+            <p class="size">MSMediaPlayer.exe — ≈ 157 MB</p>
+            <a class="btn btn-ghost" href="https://github.com/midomosad311-lang/MS-Media-Player/releases/latest/download/MSMediaPlayer.exe">Download portable</a>
+          </article>
+        </div>
+        <div class="checksum">
+          <p class="label">Installer SHA-256:</p>
+          <code>AEB789C385153EF4D0A389D1DEDAB38557718D3D9C78D1CB69096D529B34094E</code>
+          <p class="label">Portable SHA-256:</p>
+          <code>13FE8379F8DD777B104FA924B7CC4F2DB5963FAC7E60D308622D0D9EE026C30F</code>
+        </div>
+      </div>
+    </section>
+
+    <section id="accessibility-en">
+      <div class="wrap split">
+        <div>
+          <h2>Accessible by design</h2>
+          <p class="sub">Accessibility is not an add-on; it is the foundation of every screen and every control.</p>
+          <ul class="checks">
+            <li>Full NVDA, JAWS and Narrator support.</li>
+            <li>Every control announces its name, shortcut and description.</li>
+            <li>The seek slider is its own Tab stop and announces elapsed, total and remaining time in words.</li>
+            <li>High-contrast themes and scalable fonts.</li>
+            <li>Complete keyboard navigation without a mouse.</li>
+            <li>No drag-and-drop dependency, avoiding screen-reader conflicts.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Quick shortcuts</h3>
+          <p><strong>Space</strong> play/pause • <strong>S</strong> stop • <strong>F</strong> fullscreen</p>
+          <p><strong>Ctrl+O</strong> open file • <strong>Ctrl+U</strong> open URL • <strong>Ctrl+P</strong> settings</p>
+          <p><strong>R</strong> repeat • <strong>H</strong> shuffle • <strong>M</strong> mute • <strong>]</strong> / <strong>[</strong> speed</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq-en">
+      <div class="wrap">
+        <h2>Frequently asked questions</h2>
+        <p class="sub">Quick answers before you download.</p>
+        <details>
+          <summary>Do I need Python or VLC?</summary>
+          <p>No. The executable and installer bundle the complete VLC engine and every dependency. Windows 10/11 (64-bit) is all you need.</p>
+        </details>
+        <details>
+          <summary>Is it free?</summary>
+          <p>Yes, the application is free for personal use. The source is published for viewing only under a proprietary (All Rights Reserved) licence; see the licence page in the repository.</p>
+        </details>
+        <details>
+          <summary>Does it work with my screen reader?</summary>
+          <p>Yes. It has been tested with NVDA and Narrator and follows Qt accessibility standards, which also support JAWS. Every control announces its name and shortcut.</p>
+        </details>
+        <details>
+          <summary>How do I report a bug or request a feature?</summary>
+          <p>Use the <a href="https://github.com/midomosad311-lang/MS-Media-Player/issues">GitHub issues page</a>, or WhatsApp/Telegram at +20 10 40 24 30 45.</p>
+        </details>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <strong>MS Media Player</strong> — <span id="footer-license">برنامج مجاني احتكاري (All Rights Reserved)</span>
+    </div>
+    <nav class="links" aria-label="روابط المشروع">
+      <a href="https://github.com/midomosad311-lang/MS-Media-Player">GitHub</a>
+      <a href="https://github.com/midomosad311-lang/MS-Media-Player/releases">Releases</a>
+      <a href="https://github.com/midomosad311-lang/MS-Media-Player/issues">Issues</a>
+      <a href="https://github.com/midomosad311-lang/MS-Media-Player/blob/main/LICENSE">License</a>
+      <a href="https://wa.me/201040243045">WhatsApp</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+function setLang(lang) {
+  const ar = document.getElementById('ar');
+  const en = document.getElementById('en');
+  const btnAr = document.getElementById('btn-ar');
+  const btnEn = document.getElementById('btn-en');
+  const footer = document.getElementById('footer-license');
+  const isAr = lang === 'ar';
+  ar.hidden = !isAr;
+  en.hidden = isAr;
+  document.documentElement.lang = isAr ? 'ar' : 'en';
+  document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+  btnAr.setAttribute('aria-pressed', String(isAr));
+  btnEn.setAttribute('aria-pressed', String(!isAr));
+  footer.textContent = isAr
+    ? 'برنامج مجاني احتكاري (All Rights Reserved)'
+    : 'Proprietary freeware (All Rights Reserved)';
+  try { localStorage.setItem('msmp-lang', lang); } catch (e) {}
+}
+try {
+  const saved = localStorage.getItem('msmp-lang');
+  if (saved === 'en') setLang('en');
+} catch (e) {}
+</script>
+</body>
+</html>
